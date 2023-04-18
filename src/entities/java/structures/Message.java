@@ -1,8 +1,8 @@
 package structures;
 
-public class Message {
+import exceptions.MessageHeaderLengthException;
 
-    private static final int HEADER = 4;
+public class Message {
 
     private String message;
 
@@ -14,7 +14,14 @@ public class Message {
         this.type = type;
     }
 
+
+    public int getLength()
+    {
+        return this.message.length();
+    }
+
 }
+
 
 class MessageTypes{
     public static String TX_MESSAGE = "!MESSAGE";
