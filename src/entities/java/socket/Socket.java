@@ -1,36 +1,15 @@
 package socket;
 
-import structures.Address;
 import structures.Message;
+import structures.MessageSettings;
 
-import java.io.IOException;
+public interface Socket {
 
-public class Socket {
+    public void setMessageSettings(MessageSettings messageSettings);
 
-    private java.net.Socket socket;
+    public void send(Message message);
 
-    private Address address;
+    public java.net.Socket getSocketObject();
 
-    private InputChannel inputChannel;
-
-    private OutputChannel outputChannel;
-
-
-    public Socket(Address address)
-    {
-        this.address = address;
-        try {
-            this.socket = new java.net.Socket(this.address.getIpv4(), this.address.getPort());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        this.inputChannel = new InputChannel(this.socket);
-        this.outputChannel = new OutputChannel(this.socket);
-    }
-
-
-    public void send(Message message)
-    {
-
-    }
+    public boolean isConnected();
 }
