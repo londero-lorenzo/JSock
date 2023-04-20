@@ -1,9 +1,8 @@
 package server;
 
 import client.ClientSocket;
+import structures.Address;
 import structures.MessageSettings;
-
-import java.net.ServerSocket;
 
 public class MultiConnectionServer {
 
@@ -14,15 +13,19 @@ public class MultiConnectionServer {
 
     private MessageSettings defaultMessageSettings;
 
-    public MultiConnectionServer(MessageSettings messageSettings, int port) {
+    public MultiConnectionServer(int port, MessageSettings messageSettings) {
         //servirebbe una ricezione di default (messageSettings)
         this.defaultMessageSettings = messageSettings;
         this.port = port;
-        this.multiConnectionServerSocket = new MultiConnectionServerSocket(this.port);
+        this.multiConnectionServerSocket = new MultiConnectionServerSocket(this.port, this.defaultMessageSettings);
     }
 
-    public void accept()
-    {
+    public MultiConnectionServer(Address address, MessageSettings messageSettings) {
+        this.defaultMessageSettings = messageSettings;
+        this.multiConnectionServerSocket = new MultiConnectionServerSocket(address, this.defaultMessageSettings);
+    }
+
+    public void accept() {
         ClientSocket clientSocket = this.multiConnectionServerSocket.accept();
         clientSocket.read();
     }
