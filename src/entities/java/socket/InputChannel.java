@@ -1,33 +1,50 @@
 package socket;
 
 import client.ClientSocket;
-import structures.Message;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStream;
 
 public class InputChannel {
 
-    private OutputStream socketOutputStream;
+    private InputStream socketInputStream;
+
+    private DataInputReader dataInputReader;
 
     private ClientSocket socket;
+
 
     public InputChannel(ClientSocket socket) {
         this.socket = socket;
         try {
-            this.socketOutputStream = this.socket.getSocketObject().getOutputStream();
+            this.socketInputStream = this.socket.getSocketObject().getInputStream();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        this.dataInputReader = new DataInputReader(this);
     }
 
-    public void send(Message message) {
+    public void read() {
+        ByteList byteList = this.dataInputReader.read();
+        byteList.print();
+        String data = new String(byteList.getBytes());
+        System.out.println(data);
+
+        /*
         try {
-            System.out.println(this.socket.getMessageSettings().getHeader());
-            this.socketOutputStream.write(this.socket.getMessageSettings().getHeader());
+            data = this.socketInputStream.read();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+*/
+        // System.out.println(data);
     }
 
+    public InputStream getSocketInputStream() {
+        return this.socketInputStream;
+    }
+
+    public ClientSocket getClientSocket() {
+        return socket;
+    }
 }
