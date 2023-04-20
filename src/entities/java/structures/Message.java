@@ -4,29 +4,32 @@ import exceptions.MessageHeaderLengthException;
 
 public class Message {
 
-    private String message;
+    private final String message;
 
     private String type;
 
-    public Message(String message, String type)
-    {
+    public Message(String message, String type) {
         this.message = message;
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return this.message;
+    }
 
-    public int getLength()
-    {
+    public byte[] getBytes() {
+        return this.message.getBytes();
+    }
+
+    public int getLength() {
         return this.message.length();
+    }
+
+    public String getType() {
+        return this.type;
     }
 
 }
 
 
-class MessageTypes{
-    public static String TX_MESSAGE = "!MESSAGE";
-    public static String RX_NORMAL_MESSAGE = "!N_MSG";
-    public static String RX_LONG_MESSAGE = "!L_MSG";
-    public static String RX_END_LONG_MESSAGE = "!F_L_MSG";
-    public static String RECV_MSG = "!RECIVED";
-}
