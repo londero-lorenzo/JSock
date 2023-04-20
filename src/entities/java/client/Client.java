@@ -1,6 +1,7 @@
 package client;
 
 import structures.Address;
+import structures.Message;
 import structures.MessageSettings;
 
 
@@ -25,9 +26,9 @@ public class Client {
         this.socket = new ClientSocket(this.serverAddress, this.messageSettings);
     }
 
-    public void send()
+    public void send(Message message)
     {
-        this.socket.send(null);
+        this.socket.send(message);
     }
 
     public void setMessageSettings(MessageSettings messageSettings) {
