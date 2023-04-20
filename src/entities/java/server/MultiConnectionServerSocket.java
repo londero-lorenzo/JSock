@@ -1,15 +1,15 @@
 package server;
 
 import client.ClientSocket;
-import socket.InputChannel;
 import socket.OutputChannel;
+import socket.InputChannel;
 import socket.Socket;
 import structures.Address;
 import structures.Message;
 import structures.MessageSettings;
 
 import java.io.IOException;
-import java.net.ServerSocket;
+import java.net.InetAddress;
 
 public class MultiConnectionServerSocket implements Socket {
 
@@ -18,24 +18,36 @@ public class MultiConnectionServerSocket implements Socket {
 
     private Address address;
 
-    private InputChannel inputChannel;
-
     private OutputChannel outputChannel;
+
+    private InputChannel inputChannel;
 
     private MessageSettings messageSettings;
 
     private boolean connected = false;
 
 
-    public MultiConnectionServerSocket(int port) {
+    public MultiConnectionServerSocket(int port, MessageSettings messageSettings) {
+        this.messageSettings = messageSettings;
         try {
             this.serverSocket = new java.net.ServerSocket(port);
+            this.address = new Address(InetAddress.getLocalHost().getHostAddress(), port);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.address = new Address(this.serverSocket.getInetAddress().getHostAddress(), port);
         System.out.println("Server avviato all'indirizzo: " + this.address.getIpv4() + " sulla porta: " + this.address.getPort());
+    }
 
+
+    public MultiConnectionServerSocket(Address address, MessageSettings messageSettings) {
+        this.messageSettings = messageSettings;
+        try {
+            this.address = address;
+            this.serverSocket = new java.net.ServerSocket(this.address.getPort());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Server avviato all'indirizzo: " + this.address.getIpv4() + " sulla porta: " + this.address.getPort());
     }
 
     public ClientSocket accept() {
