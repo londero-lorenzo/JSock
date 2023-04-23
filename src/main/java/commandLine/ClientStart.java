@@ -1,20 +1,16 @@
 package commandLine;
 
 import client.Client;
-import structures.Address;
-import structures.Message;
-import structures.MessageTypes;
-import structures.MessageSettings;
+import structures.*;
 
 public class ClientStart {
 
     public static void main(String[] args) {
-        MessageSettings messageSettings = new MessageSettings(3);
+        Setting<Integer> headerSetting = new Setting<>(MessageSettings.HEADER_SETTING, 3);
+        MessageSettings messageSettings = new MessageSettings(headerSetting);
         Client client = new Client(messageSettings);
         Address serverAddress = new Address("192.168.178.134", 30080);
         client.connectTo(serverAddress);
-        Message message = new Message("Hello World", MessageTypes.TX_MESSAGE);
-        client.send(message);
     }
 
 }
