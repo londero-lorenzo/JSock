@@ -23,11 +23,11 @@ public class Client {
     }
 
     private void connect() {
-        this.socket = new ClientSocket(this.serverAddress, this.messageSettings);
+        this.socket = new ClientSocket(this.serverAddress);
+        this.setMessageSettings(this.messageSettings);
     }
 
-    public void send(Message message)
-    {
+    public void send(Message message) {
         this.socket.send(message);
     }
 
