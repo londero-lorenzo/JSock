@@ -18,16 +18,15 @@ public class ClientSocket implements Socket {
 
     private OutputChannel outputChannel;
 
-    private InputChannel inputChannel;
+    protected InputChannel inputChannel;
 
-    private MessageSettings messageSettings;
+    protected MessageSettings messageSettings;
 
     private boolean connected = false;
 
 
-    public ClientSocket(Address address, MessageSettings messageSettings) {
+    public ClientSocket(Address address) {
         this.address = address;
-        this.messageSettings = messageSettings;
         try {
             this.socket = new java.net.Socket(this.address.getIpv4(), this.address.getPort());
         } catch (IOException e) {
@@ -47,17 +46,18 @@ public class ClientSocket implements Socket {
         this.outputChannel = new OutputChannel(this);
         this.inputChannel = new InputChannel(this);
         this.connected = true;
-        this.messageSettingChanged();
     }
 
     @Override
     public void setMessageSettings(MessageSettings messageSettings) {
         this.messageSettings = messageSettings;
+        this.messageSettingChanged();
         // TODO: protocollo comunicazione impostazioni
     }
 
     private void messageSettingChanged() {
-        this.send(new Message(Integer.toString(this.messageSettings.getHeaderSize()), MessageTypes.SET_HEADER_LENGTH));
+        // TODO: add settings separators + line separators
+        this.send(new Message(Integer.toString(this.messageSettings.getHeaderLength()) + MessageTypes.LINE_SEPARATOR, MessageTypes.SET_HEADER_LENGTH));
 
     }
 
@@ -66,9 +66,10 @@ public class ClientSocket implements Socket {
         this.outputChannel.send(message);
     }
 
-    public void read() {
-        this.inputChannel.read();
+    public String read() {
+        return this.inputChannel.read();
     }
+
 
     public MessageSettings getMessageSettings() {
         return this.messageSettings;
