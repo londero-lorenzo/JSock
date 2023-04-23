@@ -1,14 +1,19 @@
 package structures;
 
-import exceptions.MessageHeaderLengthException;
-
 public class MessageSettings {
 
+    public static String HEADER_SETTING = MessageTypes.SET_HEADER_LENGTH;
 
-    private final int header;
 
-    public MessageSettings(int headerByte) {
-        this.header = headerByte;
+    private SettingList settingList;
+
+    public MessageSettings(Setting<?>... settings) {
+        this.settingList = new SettingList();
+        this.settingList.add(settings);
+    }
+
+    public void add(Setting<?> messageSetting) {
+        this.settingList.add(messageSetting);
     }
 
 
@@ -19,11 +24,18 @@ public class MessageSettings {
     //}
 
 
-    public int getHeaderSize() {
+    public void changeSettingsByString(String settings) {
+        this.settingList.changeSettingsByString(settings);
+    }
 
+    public int getHeaderSize() {
         String headerString = "";
-        for (int i = 0; i < this.header; i++)
+        for (int i = 0; i < (int) this.settingList.getSetting(HEADER_SETTING).getValue(); i++)
             headerString += "9";
         return Integer.parseInt(headerString);
+    }
+
+    public int getHeaderLength() {
+        return (int) this.settingList.getSetting(HEADER_SETTING).getValue();
     }
 }
