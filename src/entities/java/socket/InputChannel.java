@@ -24,12 +24,9 @@ public class InputChannel {
         this.dataInputReader = new DataInputReader(this);
     }
 
-    public void read() {
-        ByteList byteList = this.dataInputReader.read();
-        byteList.print();
-        String data = new String(byteList.getBytes());
-        System.out.println(data);
-
+    public String read() {
+        ByteList byteList = this.dataInputReader.readAll();
+        return new String(byteList.getBytes());
         /*
         try {
             data = this.socketInputStream.read();
@@ -38,6 +35,12 @@ public class InputChannel {
         }
 */
         // System.out.println(data);
+    }
+
+    public String readAll()
+    {
+        ByteList byteList = this.dataInputReader.readAll();
+        return new String(byteList.getBytes());
     }
 
     public InputStream getSocketInputStream() {
