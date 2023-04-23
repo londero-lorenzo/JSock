@@ -1,7 +1,5 @@
 package structures;
 
-import exceptions.MessageHeaderLengthException;
-
 public class Message {
 
     private final String message;
