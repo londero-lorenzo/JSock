@@ -28,6 +28,7 @@ public class OutputChannel {
             System.out.println("Byte message: " + Arrays.toString(message.toString().getBytes()));
             this.socketOutputStream.write(message.getType().getBytes());
             this.socketOutputStream.write(message.getBytes());
+            this.socketOutputStream.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
