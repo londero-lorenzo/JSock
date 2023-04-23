@@ -50,9 +50,9 @@ public class MultiConnectionServerSocket implements Socket {
         System.out.println("Server avviato all'indirizzo: " + this.address.getIpv4() + " sulla porta: " + this.address.getPort());
     }
 
-    public ClientSocket accept() {
+    public ClientSocketServer accept() {
         try {
-            return new ClientSocket(this.serverSocket.accept(), this.messageSettings);
+            return new ClientSocketServer(this.serverSocket.accept(), this.messageSettings);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
