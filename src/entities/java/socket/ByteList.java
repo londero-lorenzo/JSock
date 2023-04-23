@@ -1,24 +1,17 @@
 package socket;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class ByteList {
+public class ByteList extends structures.List<Byte> {
 
-    private List<Byte> bytes = new ArrayList<>();
 
-    public void add(byte b) {
-        this.bytes.add(b);
-    }
-
-    public int getLength() {
-        return this.bytes.size();
+    public void removeLastByte() {
+        this.removeLastElement();
     }
 
     public byte[] getBytes() {
-        byte[] data = new byte[this.bytes.size()];
+        byte[] data = new byte[this.elements.size()];
         int i = 0;
-        for (Byte b : this.bytes)
+        for (Byte b : this.elements)
             if (b != null) {
                 data[i] = b;
                 i++;
@@ -26,7 +19,21 @@ public class ByteList {
         return data;
     }
 
+    public byte getLastByte() {
+        Byte lastByte = this.getLastElement();
+        return (lastByte != null) ? lastByte : 0;
+    }
+
+    public String getStringFromByteList() {
+        return new String(this.getBytes());
+    }
+
+    public int getIntFromByteList() {
+        return Integer.parseInt(this.getStringFromByteList());
+    }
+
+
     public void print() {
-        System.out.println("Elements: " + this.bytes);
+        System.out.println("Elements: " + this.elements);
     }
 }
