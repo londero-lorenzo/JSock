@@ -8,4 +8,6 @@ public class MessageTypes {
     public static String RX_LONG_MESSAGE = "!L_MSG";
     public static String RX_END_LONG_MESSAGE = "!F_L_MSG";
     public static String RECV_MSG = "!RECIVED";
+
+    public static String LINE_SEPARATOR = "\r\n";
 }
