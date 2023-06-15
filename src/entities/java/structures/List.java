@@ -17,6 +17,11 @@ public class List<T> {
         this.elements.remove(element);
     }
 
+    public void replace(T oldElement, T newElement) {
+        this.elements.remove(oldElement);
+        this.elements.add(newElement);
+    }
+
     public int getLength() {
         return this.elements.size();
     }
