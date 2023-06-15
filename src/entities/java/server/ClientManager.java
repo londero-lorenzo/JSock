@@ -1,6 +1,9 @@
 package server;
 
 
+import structures.Message;
+import structures.MessageTypes;
+
 public class ClientManager implements Runnable {
     private final ClientSocketServer clientSocket;
 
