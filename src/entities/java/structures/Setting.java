@@ -3,17 +3,22 @@ package structures;
 import exceptions.UnalterableSettingByStringException;
 
 public class Setting<TypeOfValue> {
-    private final String name;
+    private final SettingTypes type;
 
     private TypeOfValue value;
 
-    public Setting(String settingName, TypeOfValue value) {
-        this.name = settingName;
+    public Setting(SettingTypes settingType, TypeOfValue value) {
+        this.type = settingType;
         this.value = value;
     }
 
     public String getName() {
-        return this.name;
+        return this.type.toString();
+    }
+
+    public SettingTypes getType()
+    {
+        return this.type;
     }
 
     public TypeOfValue getValue() {
