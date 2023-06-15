@@ -12,8 +12,8 @@ public class Client {
 
     private SettingsCollector settingsCollector;
 
-    public Client(MessageSettings messageSettings) {
-        this.messageSettings = messageSettings;
+    public Client(SettingsCollector messageSettings) {
+        this.settingsCollector = messageSettings;
     }
 
 
