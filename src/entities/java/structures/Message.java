@@ -20,8 +20,12 @@ public class Message {
         return this.message.getBytes();
     }
 
-    public int getLength() {
-        return this.message.length();
+    public int getDataLength() {
+        return this.message.getBytes().length;
+    }
+
+    public int getTypeLength() {
+        return this.type.length();
     }
 
     public MessageTypes getType() {
