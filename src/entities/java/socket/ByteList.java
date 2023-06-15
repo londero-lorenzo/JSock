@@ -29,7 +29,7 @@ public class ByteList extends structures.List<Byte> {
     }
 
     public int getIntFromByteList() {
-        return Integer.parseInt(this.getStringFromByteList());
+        return Integer.parseInt(this.getStringFromByteList().replace(" ", ""));
     }
 
 
