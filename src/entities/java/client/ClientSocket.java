@@ -50,8 +50,12 @@ public class ClientSocket implements Socket {
     }
 
     private void initializeClient() {
+        this.getLogger().logWithTime("Connessione a: " + this.address);
+        this.getLogger().logWithPadding("Inizializzazione client:");
         this.outputChannel = new OutputChannel(this);
+        this.getLogger().logWithPadding(" -> Canale in uscita inizializzato...");
         this.inputChannel = new InputChannel(this);
+        this.getLogger().logWithPadding(" -> Canale in ingresso inizializzato...");
         this.connected = true;
     }
 
