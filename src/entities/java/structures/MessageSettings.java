@@ -19,6 +19,10 @@ public class MessageSettings extends Settings {
     //        throw new MessageHeaderLengthException(this);
     //}
 
+    public boolean checkHeaderLengthOfMessage(Message message) {
+        return (this.getHeaderSize() > message.getDataLength());
+    }
+
     public String getDataMessageSize(Message message) {
         int messageLength = message.getDataLength();
         String messageStringSize = Integer.toString(messageLength);
