@@ -1,13 +1,10 @@
 package server;
 
-import client.ClientSocket;
-import socket.OutputChannel;
-import socket.InputChannel;
 import socket.Socket;
 import structures.Address;
 import structures.Message;
 import structures.MessageSettings;
-
+import structures.SettingsCollector;
 import java.io.IOException;
 import java.net.InetAddress;
 
