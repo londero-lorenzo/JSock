@@ -12,13 +12,13 @@ public class SettingList extends List<Setting<?>> {
         }
     }
 
-    public Setting<?> getSetting(String settingName) {
+    public Setting<?> getSetting(SettingTypes settingType) {
         for (Setting<?> messageSetting : this.elements) {
-            if (Objects.equals(messageSetting.getName(), settingName)) {
+            if (Objects.equals(messageSetting.getType(), settingType)) {
                 return messageSetting;
             }
         }
-        throw new SettingKeyNotFoundError(settingName);
+        throw new SettingKeyNotFoundError(settingType);
     }
 
     public void changeSettingsByString(String allSetting) {
