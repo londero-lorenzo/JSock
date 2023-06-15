@@ -2,11 +2,11 @@ package structures;
 
 public class Address {
 
-    private String ipv4;
+    private final String ipv4;
 
-    private int port;
+    private final int port;
 
-    private Boolean secure = false;
+    private final Boolean secure = false;
 
     public Address(String ipv4, int port) {
         this.ipv4 = ipv4;
