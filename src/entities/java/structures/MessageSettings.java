@@ -8,16 +8,8 @@ public class MessageSettings extends Settings {
      */
     //   public static String HEADER_SETTING = MessageTypes.SET_HEADER_LENGTH.toString();
 
-
-    private SettingList settingList;
-
     public MessageSettings(Setting<?>... settings) {
-        this.settingList = new SettingList();
-        this.settingList.add(settings);
-    }
-
-    public void add(Setting<?> messageSetting) {
-        this.settingList.add(messageSetting);
+        super(settings);
     }
 
 
