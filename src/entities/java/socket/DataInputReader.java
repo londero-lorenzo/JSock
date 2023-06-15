@@ -47,10 +47,7 @@ public class DataInputReader {
      * @return
      */
     public ByteList readAll() {
-        this.clear();
-        this.readAll(this.inputChannel.getClientSocket().getMessageSettings().getHeaderSize());
-        return this.byteList;
-
+        return readAll(this.inputChannel.getClientSocket().getMessageSettings().getHeaderSize());
     }
 
     private void read(int times) {
@@ -66,12 +63,9 @@ public class DataInputReader {
     }
 
 
-    public ByteList read() {
-        this.clear();
-        this.read(this.inputChannel.getClientSocket().getMessageSettings().getHeaderLength());
-        int messageLength = this.byteList.getIntFromByteList();
-        this.read(messageLength);
-        return this.byteList;
+    public Message read() {
+        MessageTypes messageType = this.getMessageType();
+        return createMessageFromByteList(this.getRawMessageData(), messageType);
     }
 
     private void clear() {
