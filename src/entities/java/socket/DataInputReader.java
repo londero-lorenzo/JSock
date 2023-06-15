@@ -1,6 +1,7 @@
 package socket;
 
 import exceptions.MessageHeaderLengthException;
+import structures.Message;
 import structures.MessageTypes;
 
 import java.io.IOException;
