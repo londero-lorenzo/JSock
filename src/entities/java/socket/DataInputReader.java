@@ -13,7 +13,6 @@ public class DataInputReader {
 
     public DataInputReader(InputChannel inputChannel) {
         this.inputChannel = inputChannel;
-        this.byteList = new ByteList();
     }
 
     private void readAll(int times) {
