@@ -9,6 +9,14 @@ public class ClientStart {
 
     public static void main(String[] args) {
         Setting<Integer> headerSetting = new Setting<>(SettingTypes.HEADER_SETTING, 3);
+
+        new File("./Logs").mkdirs();
+        File logFile = new File("./Logs/CLIENT_logFile.txt");
+        Logger logger = new Logger(Logger.Type.CONSOLE, logFile);
+
+        Setting<Logger> loggerSetting = new Setting<>(SettingTypes.LOGGER_SETTING, logger);
+
+        Settings settings = new Settings(loggerSetting);
         MessageSettings messageSettings = new MessageSettings(headerSetting);
         Client client = new Client(messageSettings);
         Address serverAddress = new Address("192.168.178.134", 30080);
