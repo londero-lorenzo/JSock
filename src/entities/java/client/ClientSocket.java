@@ -7,6 +7,8 @@ import structures.Address;
 import structures.Message;
 import structures.MessageSettings;
 import structures.MessageTypes;
+import structures.SettingsCollector;
+import structures.Logger;
 
 import java.io.IOException;
 
