@@ -41,7 +41,7 @@ public class ClientSocket implements Socket {
     }
 
 
-    public ClientSocket(java.net.Socket socket, MessageSettings messageSettings) {
+    public ClientSocket(java.net.Socket socket, SettingsCollector settingsCollector) {
         this.socket = socket;
         this.messageSettings = messageSettings;
         this.initializeClient();
