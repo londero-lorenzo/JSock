@@ -43,7 +43,8 @@ public class ClientSocket implements Socket {
 
     public ClientSocket(java.net.Socket socket, SettingsCollector settingsCollector) {
         this.socket = socket;
-        this.messageSettings = messageSettings;
+        this.address = new Address(socket.getInetAddress().getHostAddress(), socket.getPort());
+        this.settingsCollector = settingsCollector;
         this.initializeClient();
     }
 
