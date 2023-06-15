@@ -66,8 +66,9 @@ public class ClientSocket implements Socket {
 
     @Override
     public void setMessageSettings(MessageSettings messageSettings) {
-        this.messageSettings = messageSettings;
-        this.messageSettingChanged();
+        if (this.messageSettingChanged(this.settingsCollector.getMessageSettings(), messageSettings))
+            this.sendSettings(new Message(String.valueOf(messageSettings.getHeaderLength()), MessageTypes.SET_HEADER_LENGTH));
+
         // TODO: protocollo comunicazione impostazioni
     }
 
