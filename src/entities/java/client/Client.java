@@ -31,8 +31,12 @@ public class Client {
         this.socket.send(message);
     }
 
-    public void setMessageSettings(MessageSettings messageSettings) {
-        this.messageSettings = messageSettings;
+    public Message receive()
+    {
+        return this.socket.read();
+    }
+
+    public void setMessageSettings() {
         if (this.socket.isConnected())
             this.socket.setMessageSettings(this.messageSettings);
         //TODO: invio al server le nuove impostazioni
