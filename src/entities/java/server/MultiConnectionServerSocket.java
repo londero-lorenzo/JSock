@@ -11,17 +11,14 @@ import java.net.InetAddress;
 public class MultiConnectionServerSocket implements Socket {
 
 
-    private java.net.ServerSocket serverSocket;
+    private final java.net.ServerSocket serverSocket;
 
-    private Address address;
+    private final Address address;
 
-    private OutputChannel outputChannel;
+    private SettingsCollector settingsCollector;
 
-    private InputChannel inputChannel;
+    private final boolean connected = false;
 
-    private MessageSettings messageSettings;
-
-    private boolean connected = false;
 
 
     public MultiConnectionServerSocket(int port, MessageSettings messageSettings) {
