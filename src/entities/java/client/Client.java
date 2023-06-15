@@ -23,8 +23,8 @@ public class Client {
     }
 
     private void connect() {
-        this.socket = new ClientSocket(this.serverAddress);
-        this.setMessageSettings(this.messageSettings);
+        this.socket = new ClientSocket(this.serverAddress, this.settingsCollector);
+        this.setMessageSettings();
     }
 
     public void send(Message message) {
