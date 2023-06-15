@@ -8,8 +8,7 @@ public class Address {
 
     private Boolean secure = false;
 
-    public Address(String ipv4, int port)
-    {
+    public Address(String ipv4, int port) {
         this.ipv4 = ipv4;
         this.port = port;
     }
@@ -21,5 +20,10 @@ public class Address {
 
     public int getPort() {
         return port;
+    }
+
+    @Override
+    public String toString() {
+        return this.ipv4 + ":" + this.port;
     }
 }
