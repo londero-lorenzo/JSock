@@ -23,8 +23,13 @@ public class ServerStart {
 
         Settings settings = new Settings(loggerSetting);
         MessageSettings messageSettings = new MessageSettings(headerSetting);
-        Address serverAddress = new Address("192.168.178.134", 30080);
-        MultiConnectionServer multiConnectionServer = new MultiConnectionServer(serverAddress, messageSettings);
+
+        SettingsCollector settingsCollector = new SettingsCollector();
+        settingsCollector.add(settings);
+        settingsCollector.add(messageSettings);
+
+        Address serverAddress = new Address("192.168.178.134", 10951);
+        MultiConnectionServer multiConnectionServer = new MultiConnectionServer(serverAddress, settingsCollector);
         multiConnectionServer.accept();
     }
 
