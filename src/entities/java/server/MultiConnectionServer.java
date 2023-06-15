@@ -1,9 +1,8 @@
 package server;
 
-import client.ClientSocket;
 import exceptions.ServerIsAlreadyRunningException;
 import structures.Address;
-import structures.MessageSettings;
+import structures.SettingsCollector;
 
 public class MultiConnectionServer {
 
@@ -11,9 +10,9 @@ public class MultiConnectionServer {
 
     private int port;
 
-    private MultiConnectionServerSocket multiConnectionServerSocket;
+    private final MultiConnectionServerSocket multiConnectionServerSocket;
 
-    private MessageSettings defaultMessageSettings;
+    private SettingsCollector settingsCollector;
 
     private ClientManagerList clientManagerList;
 
@@ -24,18 +23,18 @@ public class MultiConnectionServer {
             throw new ServerIsAlreadyRunningException(this.port);
     }
 
-    public MultiConnectionServer(int port, MessageSettings messageSettings) {
+    public MultiConnectionServer(int port, SettingsCollector settingsCollector) {
         this.onlyOneServerCheck();
-        this.defaultMessageSettings = messageSettings;
+        this.settingsCollector = settingsCollector;
         this.port = port;
-        this.multiConnectionServerSocket = new MultiConnectionServerSocket(this.port, this.defaultMessageSettings);
+        this.multiConnectionServerSocket = new MultiConnectionServerSocket(this.port, this.settingsCollector);
         this.initializeClientManagerList();
     }
 
-    public MultiConnectionServer(Address address, MessageSettings messageSettings) {
+    public MultiConnectionServer(Address address, SettingsCollector settingsCollector) {
         this.onlyOneServerCheck();
-        this.defaultMessageSettings = messageSettings;
-        this.multiConnectionServerSocket = new MultiConnectionServerSocket(address, this.defaultMessageSettings);
+        this.settingsCollector = settingsCollector;
+        this.multiConnectionServerSocket = new MultiConnectionServerSocket(address, this.settingsCollector);
         this.initializeClientManagerList();
     }
 
