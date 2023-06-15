@@ -20,33 +20,33 @@ public class MultiConnectionServerSocket implements Socket {
     private final boolean connected = false;
 
 
-
-    public MultiConnectionServerSocket(int port, MessageSettings messageSettings) {
-        this.messageSettings = messageSettings;
+    public MultiConnectionServerSocket(int port, SettingsCollector settingsCollector) {
+        this.settingsCollector = settingsCollector;
         try {
             this.serverSocket = new java.net.ServerSocket(port);
             this.address = new Address(InetAddress.getLocalHost().getHostAddress(), port);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Server avviato all'indirizzo: " + this.address.getIpv4() + " sulla porta: " + this.address.getPort());
+        this.settingsCollector.getCurrentSettings().getLogger().logWithTime("Server socket ready on address: " + this.address.getIpv4() + ":" + this.address.getPort());
     }
 
 
-    public MultiConnectionServerSocket(Address address, MessageSettings messageSettings) {
-        this.messageSettings = messageSettings;
+    public MultiConnectionServerSocket(Address address, SettingsCollector settingsCollector) {
+        this.settingsCollector = settingsCollector;
         try {
             this.address = address;
             this.serverSocket = new java.net.ServerSocket(this.address.getPort());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Server avviato all'indirizzo: " + this.address.getIpv4() + " sulla porta: " + this.address.getPort());
+        this.settingsCollector.getCurrentSettings().getLogger().logWithTime("Server socket ready on address: " + this.address.getIpv4() + ":" + this.address.getPort());
     }
 
     public ClientSocketServer accept() {
         try {
-            return new ClientSocketServer(this.serverSocket.accept(), this.messageSettings);
+            // TODO: check if here is the right place to transfer client log (is more useful create a username for the client)
+            return new ClientSocketServer(this.serverSocket.accept(), this.settingsCollector);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
