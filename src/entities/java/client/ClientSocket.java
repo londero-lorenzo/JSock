@@ -37,6 +37,7 @@ public class ClientSocket implements Socket {
             throw new RuntimeException(e);
         }
         this.initializeClient();
+        this.sendInitialSettings();
     }
 
 
