@@ -105,6 +105,10 @@ public class ClientSocket implements Socket {
         return this.settingsCollector.getCurrentSettings().getLogger();
     }
 
+    public SettingsCollector getSettingsCollector() {
+        return settingsCollector;
+    }
+
     @Override
     public java.net.Socket getSocketObject() {
         return this.socket;
