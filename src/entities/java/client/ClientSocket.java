@@ -82,6 +82,10 @@ public class ClientSocket implements Socket {
 
     }
 
+    public void sendSettings(Message message) {
+        this.outputChannel.sendSettings(message);
+    }
+
     @Override
     public void send(Message message) {
         this.outputChannel.send(message);
