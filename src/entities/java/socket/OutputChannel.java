@@ -11,9 +11,9 @@ import java.util.Arrays;
 
 public class OutputChannel {
 
-    private OutputStream socketOutputStream;
+    private final OutputStream socketOutputStream;
 
-    private ClientSocket socket;
+    private final ClientSocket socket;
 
     public OutputChannel(ClientSocket socket) {
         this.socket = socket;
