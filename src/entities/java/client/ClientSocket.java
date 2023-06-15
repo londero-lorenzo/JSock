@@ -22,7 +22,8 @@ public class ClientSocket implements Socket {
 
     protected InputChannel inputChannel;
 
-    protected MessageSettings messageSettings;
+    private final SettingsCollector settingsCollector;
+
 
     private boolean connected = false;
 
