@@ -14,9 +14,9 @@ import java.io.IOException;
 
 public class ClientSocket implements Socket {
 
-    private java.net.Socket socket;
+    private final java.net.Socket socket;
 
-    private Address address;
+    private final Address address;
 
     private OutputChannel outputChannel;
 
