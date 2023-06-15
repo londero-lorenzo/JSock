@@ -28,8 +28,9 @@ public class ClientSocket implements Socket {
     private boolean connected = false;
 
 
-    public ClientSocket(Address address) {
+    public ClientSocket(Address address, SettingsCollector settingsCollector) {
         this.address = address;
+        this.settingsCollector = settingsCollector;
         try {
             this.socket = new java.net.Socket(this.address.getIpv4(), this.address.getPort());
         } catch (IOException e) {
