@@ -2,7 +2,7 @@ package client;
 
 import structures.Address;
 import structures.Message;
-import structures.MessageSettings;
+import structures.SettingsCollector;
 
 
 public class Client {
