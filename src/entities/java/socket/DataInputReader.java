@@ -9,9 +9,7 @@ import java.util.Arrays;
 
 public class DataInputReader {
 
-    private InputChannel inputChannel;
-
-    private ByteList byteList;
+    private final InputChannel inputChannel;
 
     public DataInputReader(InputChannel inputChannel) {
         this.inputChannel = inputChannel;
