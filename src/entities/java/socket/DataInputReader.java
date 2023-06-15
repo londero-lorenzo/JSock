@@ -50,16 +50,18 @@ public class DataInputReader {
         return readAll(this.inputChannel.getClientSocket().getMessageSettings().getHeaderSize());
     }
 
-    private void read(int times) {
+    private ByteList read(int times) {
+        ByteList byteList = new ByteList();
         for (int i = 0; i < times; i++) {
             try {
                 byte c = (byte) this.inputChannel.getSocketInputStream().read();
-                this.byteList.add(c);
+                byteList.add(c);
             } catch (IOException e) {
-                if (!(e instanceof java.net.SocketException && this.byteList.getLength() <= times))
+                if (!(e instanceof java.net.SocketException && byteList.getLength() <= times))
                     throw new RuntimeException(e);
             }
         }
+        return byteList;
     }
 
 
