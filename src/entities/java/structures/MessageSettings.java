@@ -2,7 +2,11 @@ package structures;
 
 public class MessageSettings extends Settings {
 
-    public static String HEADER_SETTING = MessageTypes.SET_HEADER_LENGTH;
+    /*
+     -------------------Definizioni delle impostazioni-------------------
+     (vengono caricate le impostazioni utilizzate nei pacchetti)
+     */
+    //   public static String HEADER_SETTING = MessageTypes.SET_HEADER_LENGTH.toString();
 
 
     private SettingList settingList;
