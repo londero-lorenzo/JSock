@@ -10,7 +10,7 @@ public class Client {
 
     private ClientSocket socket;
 
-    private MessageSettings messageSettings;
+    private SettingsCollector settingsCollector;
 
     public Client(MessageSettings messageSettings) {
         this.messageSettings = messageSettings;
