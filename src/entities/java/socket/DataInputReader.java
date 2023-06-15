@@ -70,7 +70,20 @@ public class DataInputReader {
         return createMessageFromByteList(this.getRawMessageData(), messageType);
     }
 
-    private void clear() {
-        this.byteList.clear();
+    private MessageTypes getMessageType() {
+        ByteList rawMessageTypeByteLengthAsString = this.read(this.inputChannel.getClientSocket().getMessageSettings().getHeaderLength());
+        int messageTypeLength = rawMessageTypeByteLengthAsString.getIntFromByteList();
+        ByteList rawMessageType = this.read(messageTypeLength);
+        return MessageTypes.fromString(rawMessageType.getStringFromByteList());
+    }
+
+    private ByteList getRawMessageData() {
+        ByteList rawMessageDataLengthAsString = this.read(this.inputChannel.getClientSocket().getMessageSettings().getHeaderLength());
+        int messageDataLength = rawMessageDataLengthAsString.getIntFromByteList();
+        return this.read(messageDataLength);
+    }
+
+    private Message createMessageFromByteList(ByteList rawMessageData, MessageTypes messageType) {
+        return new Message(rawMessageData.getStringFromByteList(), messageType);
     }
 }
