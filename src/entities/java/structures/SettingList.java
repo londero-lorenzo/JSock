@@ -23,8 +23,9 @@ public class SettingList extends List<Setting<?>> {
 
     public void changeSettingsByString(String allSetting) {
         for (Setting<?> messageSetting : this.elements) {
-            String allSettingSub = allSetting.substring(allSetting.indexOf(messageSetting.getName()) + messageSetting.getName().length());
-            messageSetting.setValueFromString((allSettingSub.substring(0, (allSettingSub.indexOf('!') != -1) ? allSettingSub.indexOf('!') : allSettingSub.length())));
+            String subStringFromSettingValue = allSetting.substring(allSetting.indexOf(messageSetting.getName()) + messageSetting.getName().length());
+            String newSettingValue = (subStringFromSettingValue.substring(0, (subStringFromSettingValue.indexOf('!') != -1) ? subStringFromSettingValue.indexOf('!') : subStringFromSettingValue.length()));
+            messageSetting.setValueFromString(newSettingValue);
         }
     }
 }
