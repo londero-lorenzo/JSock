@@ -98,7 +98,7 @@ public class ClientSocket implements Socket {
 
 
     public MessageSettings getMessageSettings() {
-        return this.messageSettings;
+        return this.settingsCollector.getMessageSettings();
     }
 
     @Override
