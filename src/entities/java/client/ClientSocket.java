@@ -59,6 +59,11 @@ public class ClientSocket implements Socket {
         this.connected = true;
     }
 
+    private void sendInitialSettings() {
+        this.sendSettings(new Message(String.valueOf(this.settingsCollector.getMessageSettings().getHeaderLength()), MessageTypes.SET_HEADER_LENGTH));
+        this.sendSettings(new Message(MessageTypes.LINE_SEPARATOR, MessageTypes.END_SETTINGS_SEPARATOR));
+    }
+
     @Override
     public void setMessageSettings(MessageSettings messageSettings) {
         this.messageSettings = messageSettings;
