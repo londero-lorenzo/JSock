@@ -18,8 +18,11 @@ public class ClientStart {
 
         Settings settings = new Settings(loggerSetting);
         MessageSettings messageSettings = new MessageSettings(headerSetting);
-        Client client = new Client(messageSettings);
-        Address serverAddress = new Address("192.168.178.134", 30080);
+
+        SettingsCollector settingsCollector = new SettingsCollector();
+        settingsCollector.add(settings);
+        settingsCollector.add(messageSettings);
+
         client.connectTo(serverAddress);
     }
 
