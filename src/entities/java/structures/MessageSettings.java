@@ -41,12 +41,12 @@ public class MessageSettings extends Settings {
 
     public int getHeaderSize() {
         String headerString = "";
-        for (int i = 0; i < (int) this.settingList.getSetting(HEADER_SETTING).getValue(); i++)
+        for (int i = 0; i < (int) this.getSettingList().getSetting(SettingTypes.HEADER_SETTING).getValue(); i++)
             headerString += "9";
         return Integer.parseInt(headerString);
     }
 
     public int getHeaderLength() {
-        return (int) this.settingList.getSetting(HEADER_SETTING).getValue();
+        return (int) this.getSettingList().getSetting(SettingTypes.HEADER_SETTING).getValue();
     }
 }
