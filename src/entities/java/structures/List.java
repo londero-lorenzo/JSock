@@ -26,6 +26,10 @@ public class List<T> {
         return this.elements.size();
     }
 
+    public java.util.List<T> getElements() {
+        return elements;
+    }
+
     public T get(int index) {
         return this.elements.get(index);
     }
