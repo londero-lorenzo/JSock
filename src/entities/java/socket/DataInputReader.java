@@ -15,25 +15,27 @@ public class DataInputReader {
         this.inputChannel = inputChannel;
     }
 
-    private void readAll(int times) {
+    private ByteList readAll(int times) {
+        ByteList byteList = new ByteList();
         boolean endFound = false;
         for (int i = 0; i < times; i++) {
             try {
                 byte c = (byte) this.inputChannel.getSocketInputStream().read();
-                if (Arrays.equals(new byte[]{this.byteList.getLastByte(), c}, MessageTypes.LINE_SEPARATOR.getBytes())) {
-                    this.byteList.removeLastByte();
+                if (Arrays.equals(new byte[]{byteList.getLastByte(), c}, MessageTypes.LINE_SEPARATOR.getBytes())) {
+                    byteList.removeLastByte();
                     endFound = true;
                     break;
                 }
-                this.byteList.add(c);
+                byteList.add(c);
 
             } catch (IOException e) {
-                if (!(e instanceof java.net.SocketException && this.byteList.getLength() <= times))
+                if (!(e instanceof java.net.SocketException && byteList.getLength() <= times))
                     throw new RuntimeException(e);
             }
         }
         if (!endFound)
             throw new MessageHeaderLengthException(this.inputChannel.getClientSocket().getMessageSettings());
+        return byteList;
     }
 
 
