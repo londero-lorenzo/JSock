@@ -26,9 +26,16 @@ public class InputChannel {
         this.dataInputReader = new DataInputReader(this);
     }
 
-    public String read() {
-        ByteList byteList = this.dataInputReader.readAll();
-        return new String(byteList.getBytes());
+    public Message read() {
+        this.socket.getLogger().logWithTime("> Ricezione... <\n");
+        Message receivedMessage = this.dataInputReader.read();
+        this.socket.getLogger().logWithPadding("Header length: " + this.socket.getMessageSettings().getHeaderSize());
+        this.socket.getLogger().logWithPadding("Tipologia di dati ricevuti: " + receivedMessage.getType());
+        this.socket.getLogger().logWithPadding("Dati ricevuti: " + receivedMessage);
+        this.socket.getLogger().logWithPadding("Dati grezzi ricevuti: " + Arrays.toString(receivedMessage.getBytes()));
+        this.socket.getLogger().logWithPadding("Lunghezza dati ricevuti: " + (receivedMessage.getType().length() + receivedMessage.getBytes().length));
+        this.socket.getLogger().logWithPaddingAndBR("> Fine Ricezione <");
+        return receivedMessage;
         /*
         try {
             data = this.socketInputStream.read();
