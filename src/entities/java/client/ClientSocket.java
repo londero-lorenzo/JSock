@@ -46,6 +46,7 @@ public class ClientSocket implements Socket {
         this.address = new Address(socket.getInetAddress().getHostAddress(), socket.getPort());
         this.settingsCollector = settingsCollector;
         this.initializeClient();
+        // TODO: set client logger file with the right name (e.g. 192.168.1.25-ClientLog.txt or wait for name: <client_name>-ClientLog.txt)
     }
 
     private void initializeClient() {
