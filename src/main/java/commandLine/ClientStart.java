@@ -26,6 +26,12 @@ public class ClientStart {
         Client client = new Client(settingsCollector);
         Address serverAddress = new Address("192.168.178.134", 10951);
         client.connectTo(serverAddress);
+//        Message message = new Message("Hello World", MessageTypes.TX_MESSAGE);
+//        client.send(message);
+
+
+        Message message = new Message("Lodap", MessageTypes.SET_NAME);
+        client.send(message);
     }
 
 }
