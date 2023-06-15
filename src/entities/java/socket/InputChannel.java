@@ -46,9 +46,11 @@ public class InputChannel {
         // System.out.println(data);
     }
 
-    public String readAll()
-    {
+    public String readAll() {
+        this.socket.getLogger().logWithTime("> Ricezione Impostazioni iniziali... <\n");
         ByteList byteList = this.dataInputReader.readAll();
+        this.socket.getLogger().logWithPadding("Dati grezzi ricevuti: " + Arrays.toString(byteList.getBytes()));
+        this.socket.getLogger().logWithPaddingAndBR("> Fine Ricezione Impostazioni iniziali... <\n");
         return new String(byteList.getBytes());
     }
 
