@@ -91,7 +91,8 @@ public class ClientSocket implements Socket {
         this.outputChannel.send(message);
     }
 
-    public String read() {
+
+    public Message read() {
         return this.inputChannel.read();
     }
 
