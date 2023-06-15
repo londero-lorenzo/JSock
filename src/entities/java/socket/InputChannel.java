@@ -9,11 +9,11 @@ import java.util.Arrays;
 
 public class InputChannel {
 
-    private InputStream socketInputStream;
+    private final InputStream socketInputStream;
 
-    private DataInputReader dataInputReader;
+    private final DataInputReader dataInputReader;
 
-    private ClientSocket socket;
+    private final ClientSocket socket;
 
 
     public InputChannel(ClientSocket socket) {
