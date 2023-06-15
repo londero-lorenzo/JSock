@@ -1,6 +1,6 @@
 package structures;
 
-public class MessageSettings {
+public class MessageSettings extends Settings {
 
     public static String HEADER_SETTING = MessageTypes.SET_HEADER_LENGTH;
 
