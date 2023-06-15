@@ -19,6 +19,12 @@ public class ClientManager implements Runnable {
 
     @Override
     public void run() {
+        while (true) {
+            Message inboundMessage = this.clientSocket.read();
+            if (inboundMessage.getType() == MessageTypes.RX_NORMAL_MESSAGE)
+            {
 
+            }
+        }
     }
 }
