@@ -49,4 +49,9 @@ public class MessageSettings extends Settings {
     public int getHeaderLength() {
         return (int) this.getSettingList().getSetting(SettingTypes.HEADER_SETTING).getValue();
     }
+
+    public boolean HeaderLengthHasChanged(MessageSettings oldMessageSettings) {
+        if (oldMessageSettings == null) return true;
+        return this.getHeaderLength() != oldMessageSettings.getHeaderLength();
+    }
 }
