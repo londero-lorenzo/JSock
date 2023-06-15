@@ -14,7 +14,7 @@ import java.io.File;
 public class ServerStart {
 
     public static void main(String[] args) {
-        Setting<Integer> headerSetting = new Setting<>(MessageSettings.HEADER_SETTING, 3);
+        Setting<Integer> headerSetting = new Setting<>(SettingTypes.HEADER_SETTING, 3);
         MessageSettings messageSettings = new MessageSettings(headerSetting);
         Address serverAddress = new Address("192.168.178.134", 30080);
         MultiConnectionServer multiConnectionServer = new MultiConnectionServer(serverAddress, messageSettings);
