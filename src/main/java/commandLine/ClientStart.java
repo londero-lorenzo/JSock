@@ -23,6 +23,8 @@ public class ClientStart {
         settingsCollector.add(settings);
         settingsCollector.add(messageSettings);
 
+        Client client = new Client(settingsCollector);
+        Address serverAddress = new Address("192.168.178.134", 10951);
         client.connectTo(serverAddress);
     }
 
