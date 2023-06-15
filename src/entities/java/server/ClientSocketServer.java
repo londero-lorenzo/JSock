@@ -2,6 +2,9 @@ package server;
 
 import client.ClientSocket;
 import structures.MessageSettings;
+import structures.SettingsCollector;
+import structures.List;
+import structures.Setting;
 
 import java.net.Socket;
 
