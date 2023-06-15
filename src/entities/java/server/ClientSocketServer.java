@@ -7,8 +7,8 @@ import java.net.Socket;
 
 public class ClientSocketServer extends ClientSocket {
 
-    public ClientSocketServer(Socket socket, MessageSettings messageSettings) {
-        super(socket, messageSettings);
+    public ClientSocketServer(Socket socket, SettingsCollector settingsCollector) {
+        super(socket, settingsCollector);
     }
 
 
