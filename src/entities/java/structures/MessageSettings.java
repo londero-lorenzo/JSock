@@ -31,6 +31,14 @@ public class MessageSettings extends Settings {
                 messageStringSize;
     }
 
+    public String getTypeMessageSize(Message message) {
+        int messageLength = message.getTypeLength();
+        String messageStringSize = Integer.toString(messageLength);
+        int rawMessageSize = messageStringSize.length();
+        return " ".repeat(Math.max(0, (Integer) this.getSettingList().getSetting(SettingTypes.HEADER_SETTING).getValue() - rawMessageSize)) +
+                messageStringSize;
+    }
+
     public int getHeaderSize() {
         String headerString = "";
         for (int i = 0; i < (int) this.settingList.getSetting(HEADER_SETTING).getValue(); i++)
