@@ -19,9 +19,12 @@ public class MessageSettings extends Settings {
     //        throw new MessageHeaderLengthException(this);
     //}
 
-
-    public void changeSettingsByString(String settings) {
-        this.settingList.changeSettingsByString(settings);
+    public String getDataMessageSize(Message message) {
+        int messageLength = message.getDataLength();
+        String messageStringSize = Integer.toString(messageLength);
+        int rawMessageSize = messageStringSize.length();
+        return " ".repeat(Math.max(0, (Integer) this.getSettingList().getSetting(SettingTypes.HEADER_SETTING).getValue() - rawMessageSize)) +
+                messageStringSize;
     }
 
     public int getHeaderSize() {
