@@ -4,9 +4,9 @@ public class Message {
 
     private final String message;
 
-    private String type;
+    private MessageTypes type;
 
-    public Message(String message, String type) {
+    public Message(String message, MessageTypes type) {
         this.message = message;
         this.type = type;
     }
@@ -24,7 +24,7 @@ public class Message {
         return this.message.length();
     }
 
-    public String getType() {
+    public MessageTypes getType() {
         return this.type;
     }
 
