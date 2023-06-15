@@ -17,8 +17,13 @@ public class ClientSocketServer extends ClientSocket {
 
     public void readInitialSettings() {
         String allSettings = this.inputChannel.readAll();
-        this.messageSettings.changeSettingsByString(allSettings);
-        System.out.println(allSettings);
+        MessageSettings oldMessageSettings = this.getSettingsCollector().getMessageSettings();
+        this.getSettingsCollector().getMessageSettings().changeSettingsByString(allSettings);
+        List<Setting<?>> changedSettings = this.getSettingsCollector().getMessageSettings().getChangedSettings(oldMessageSettings);
+        for (Setting<?> changedSetting : changedSettings.getElements()) {
+            this.getLogger().logWithPadding("Impostazione modificata: " + changedSetting.getName());
+            this.getLogger().logWithPadding("Nuovo valore associato: " + changedSetting.getValue());
+        }
     }
 
 }
