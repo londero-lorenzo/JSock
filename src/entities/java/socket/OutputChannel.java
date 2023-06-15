@@ -1,7 +1,9 @@
 package socket;
 
 import client.ClientSocket;
+import exceptions.MessageHeaderLengthException;
 import structures.Message;
+import structures.MessageTypes;
 
 import java.io.IOException;
 import java.io.OutputStream;
