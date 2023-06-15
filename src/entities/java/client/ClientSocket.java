@@ -72,9 +72,13 @@ public class ClientSocket implements Socket {
         // TODO: protocollo comunicazione impostazioni
     }
 
-    private void messageSettingChanged() {
+    private boolean messageSettingChanged(MessageSettings oldMessageSettings, MessageSettings newMessageSettings) {
+        this.settingsCollector.remove(oldMessageSettings);
+        this.settingsCollector.add(newMessageSettings);
         // TODO: add settings separators + line separators
-        this.send(new Message(Integer.toString(this.messageSettings.getHeaderLength()) + MessageTypes.LINE_SEPARATOR, MessageTypes.SET_HEADER_LENGTH));
+        return newMessageSettings.HeaderLengthHasChanged(oldMessageSettings);
+        // messaggio utilizzato per indicare la fine della trasmissione destinata per le impostazioni
+
 
     }
 
