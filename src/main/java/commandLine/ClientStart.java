@@ -3,6 +3,8 @@ package commandLine;
 import client.Client;
 import structures.*;
 
+import java.io.File;
+
 public class ClientStart {
 
     public static void main(String[] args) {
