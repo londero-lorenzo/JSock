@@ -1,5 +1,7 @@
 package client;
 
+import exceptions.ExceptionHandler;
+import exceptions.ConnectionRefusedException;
 import socket.OutputChannel;
 import socket.InputChannel;
 import socket.Socket;
