@@ -113,7 +113,6 @@ public class ClientSocket implements Socket {
         return settingsCollector;
     }
 
-    @Override
     public java.net.Socket getSocketObject() {
         return this.socket;
     }
