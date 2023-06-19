@@ -26,7 +26,7 @@ public class OutputChannel {
         }
     }
 
-    public void sendSettings(Message message) {
+    public boolean sendSettings(Message message) {
         this.socket.getLogger().logWithTime("> Trasmissione Impostazioni... <\n");
         try {
             this.socket.getLogger().logWithPadding("Header length: " + this.socket.getMessageSettings().getHeaderSize());
@@ -37,22 +37,24 @@ public class OutputChannel {
             this.socketOutputStream.write(message.getBytes());
             this.socketOutputStream.flush();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            this.socket.getExceptionHandler().setException(new TransferringSettingsException());
+            return false;
         }
         this.socket.getLogger().logWithPadding("Lunghezza dati totali inviati: " + (message.getType().getBytes().length + message.getBytes().length));
         this.socket.getLogger().logWithPaddingAndBR("> Fine Trasmissione <");
+        return true;
     }
 
 
-    public void send(Message message) {
+    public boolean send(Message message) {
         this.socket.getLogger().logWithTime("> Trasmissione... <\n");
         try {
             this.socket.getLogger().logWithPadding("Header length: " + this.socket.getMessageSettings().getHeaderSize());
             if (!this.socket.getMessageSettings().checkHeaderLengthOfMessage(message)) {
                 this.socket.getLogger().logWithPadding("Impossibile inviare il pacchetto");
-                throw new MessageHeaderLengthException(this.socket.getMessageSettings());
+                this.socket.getExceptionHandler().setException(new MessageHeaderLengthException(this.socket.getMessageSettings()));
+                return false;
             }
-
             this.socket.getLogger().logWithPadding("Lunghezza della tipologia del pacchetto: " + message.getType().getBytes().length);
             this.socketOutputStream.write(this.socket.getMessageSettings().getTypeMessageSize(message).getBytes());
             this.socket.getLogger().logWithPadding("Dati della tipologia del pacchetto: " + Arrays.toString(message.getType().getBytes()));
@@ -64,9 +66,11 @@ public class OutputChannel {
             this.socketOutputStream.write(message.getBytes());
             this.socketOutputStream.flush();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            this.socket.getExceptionHandler().setException(new TransferringException());
+            return false;
         }
         this.socket.getLogger().logWithPadding("Lunghezza dati totali inviati: " + (message.getType().getBytes().length + message.getBytes().length));
         this.socket.getLogger().logWithPaddingAndBR("> Fine Trasmissione <");
+        return true;
     }
 }
