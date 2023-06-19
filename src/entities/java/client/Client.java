@@ -7,7 +7,7 @@ import structures.Message;
 import structures.SettingsCollector;
 
 
-public class Client {
+public abstract class Client {
     private Address serverAddress;
 
     private ClientSocket socket;
