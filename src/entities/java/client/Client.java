@@ -53,6 +53,8 @@ public abstract class Client {
         //TODO: invio al server le nuove impostazioni
     }
 
+    protected abstract void askAddressAndConnect();
+
     public Logger getLogger() {
         return this.settingsCollector.getCurrentSettings().getLogger();
     }
