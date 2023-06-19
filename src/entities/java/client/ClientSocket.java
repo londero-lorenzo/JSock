@@ -88,8 +88,8 @@ public class ClientSocket implements Socket {
     }
 
     @Override
-    public void send(Message message) {
-        this.outputChannel.send(message);
+    public boolean send(Message message) {
+        return this.outputChannel.send(message);
     }
 
 
