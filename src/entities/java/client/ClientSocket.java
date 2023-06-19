@@ -117,7 +117,6 @@ public class ClientSocket implements Socket {
         return this.socket;
     }
 
-    @Override
     public boolean isConnected() {
         return this.connected;
     }
