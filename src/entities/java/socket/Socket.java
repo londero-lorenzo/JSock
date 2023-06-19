@@ -1,15 +1,11 @@
 package socket;
 
 import structures.Message;
-import structures.MessageSettings;
 
 public interface Socket {
 
-    public void setMessageSettings(MessageSettings messageSettings);
+    boolean send(Message message);
 
-    public void send(Message message);
+//    public Message receive();
 
-    public java.net.Socket getSocketObject();
-
-    public boolean isConnected();
 }
