@@ -71,12 +71,10 @@ public class ClientSocket implements Socket {
         this.sendSettings(new Message(MessageTypes.LINE_SEPARATOR, MessageTypes.END_SETTINGS_SEPARATOR));
     }
 
-    @Override
-    public void setMessageSettings(MessageSettings messageSettings) {
+    public boolean setMessageSettings(MessageSettings messageSettings) {
         if (this.messageSettingChanged(this.settingsCollector.getMessageSettings(), messageSettings))
-            this.sendSettings(new Message(String.valueOf(messageSettings.getHeaderLength()), MessageTypes.SET_HEADER_LENGTH));
-
-        // TODO: protocollo comunicazione impostazioni
+            return this.sendSettings(new Message(String.valueOf(messageSettings.getHeaderLength()), MessageTypes.SET_HEADER_LENGTH));
+        return true;
     }
 
     private boolean messageSettingChanged(MessageSettings oldMessageSettings, MessageSettings newMessageSettings) {
@@ -89,8 +87,8 @@ public class ClientSocket implements Socket {
 
     }
 
-    public void sendSettings(Message message) {
-        this.outputChannel.sendSettings(message);
+    private boolean sendSettings(Message message) {
+        return this.outputChannel.sendSettings(message);
     }
 
     @Override
