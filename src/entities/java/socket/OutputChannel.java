@@ -2,6 +2,8 @@ package socket;
 
 import client.ClientSocket;
 import exceptions.MessageHeaderLengthException;
+import exceptions.TransferringException;
+import exceptions.TransferringSettingsException;
 import structures.Message;
 import structures.MessageTypes;
 
