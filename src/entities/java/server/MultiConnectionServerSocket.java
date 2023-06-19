@@ -18,10 +18,13 @@ public class MultiConnectionServerSocket implements Socket {
 
     private final SettingsCollector settingsCollector;
 
+    private final ExceptionHandler exceptionHandler;
+
     private final boolean connected = false;
 
 
-    public MultiConnectionServerSocket(int port, SettingsCollector settingsCollector) {
+    public MultiConnectionServerSocket(int port, SettingsCollector settingsCollector, ExceptionHandler exceptionHandler) {
+        this.exceptionHandler = exceptionHandler;
         this.settingsCollector = settingsCollector;
         try {
             this.serverSocket = new java.net.ServerSocket(port);
@@ -33,7 +36,8 @@ public class MultiConnectionServerSocket implements Socket {
     }
 
 
-    public MultiConnectionServerSocket(Address address, SettingsCollector settingsCollector) {
+    public MultiConnectionServerSocket(Address address, SettingsCollector settingsCollector, ExceptionHandler exceptionHandler) {
+        this.exceptionHandler = exceptionHandler;
         this.settingsCollector = settingsCollector;
         try {
             this.address = address;
@@ -47,7 +51,7 @@ public class MultiConnectionServerSocket implements Socket {
     public ClientSocketServer accept() {
         try {
             // TODO: check if here is the right place to transfer client log (is more useful create a username for the client)
-            return new ClientSocketServer(this.serverSocket.accept(), this.settingsCollector);
+            return new ClientSocketServer(this.serverSocket.accept(), this.settingsCollector, this.exceptionHandler);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

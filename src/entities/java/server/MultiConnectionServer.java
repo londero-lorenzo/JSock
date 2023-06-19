@@ -15,6 +15,8 @@ public class MultiConnectionServer {
 
     private final SettingsCollector settingsCollector;
 
+    private final ExceptionHandler exceptionHandler;
+
     private ClientManagerList clientManagerList;
 
     private void onlyOneServerCheck() {
@@ -25,17 +27,19 @@ public class MultiConnectionServer {
     }
 
     public MultiConnectionServer(int port, SettingsCollector settingsCollector) {
+        this.exceptionHandler = new ExceptionHandler();
         this.onlyOneServerCheck();
         this.settingsCollector = settingsCollector;
         this.port = port;
-        this.multiConnectionServerSocket = new MultiConnectionServerSocket(this.port, this.settingsCollector);
+        this.multiConnectionServerSocket = new MultiConnectionServerSocket(this.port, this.settingsCollector, this.exceptionHandler);
         this.initializeClientManagerList();
     }
 
     public MultiConnectionServer(Address address, SettingsCollector settingsCollector) {
+        this.exceptionHandler = new ExceptionHandler();
         this.onlyOneServerCheck();
         this.settingsCollector = settingsCollector;
-        this.multiConnectionServerSocket = new MultiConnectionServerSocket(address, this.settingsCollector);
+        this.multiConnectionServerSocket = new MultiConnectionServerSocket(address, this.settingsCollector, this.exceptionHandler);
         this.initializeClientManagerList();
     }
 
