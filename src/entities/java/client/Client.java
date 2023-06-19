@@ -1,6 +1,8 @@
 package client;
 
+import exceptions.ExceptionHandler;
 import structures.Address;
+import structures.Logger;
 import structures.Message;
 import structures.SettingsCollector;
 
