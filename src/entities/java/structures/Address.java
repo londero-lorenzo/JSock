@@ -61,3 +61,41 @@ public class Address {
         return this.ipv4 + ":" + this.port;
     }
 }
+
+
+class Ipv4 {
+    private final int xxx;
+    private final int yyy;
+    private final int zzz;
+    private final int kkk;
+
+    Ipv4(int xxx, int yyy, int zzz, int kkk) {
+        this.xxx = xxx;
+        this.yyy = yyy;
+        this.zzz = zzz;
+        this.kkk = kkk;
+    }
+
+    static Ipv4 createIpv4FromString(String ipv4AsString) {
+        String[] ipv4Parts = ipv4AsString.split("\\.");
+        if (ipv4Parts.length == 4) {
+            for (String ipv4Part : ipv4Parts)
+                if (ipv4Part.length() > 3)
+                    return null;
+            int[] ipv4 = new int[4];
+            for (int i = 0; i < 4; i++)
+                try {
+                    ipv4[i] = Integer.parseInt(ipv4Parts[i]);
+                } catch (NumberFormatException ignored) {
+                    return null;
+                }
+            return new Ipv4(ipv4[0], ipv4[1], ipv4[2], ipv4[3]);
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(xxx) + '.' + Integer.toString(yyy) + '.' + Integer.toString(zzz) + '.' + Integer.toString(kkk);
+    }
+}
