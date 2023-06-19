@@ -53,6 +53,10 @@ public abstract class Client {
         //TODO: invio al server le nuove impostazioni
     }
 
+    public Logger getLogger() {
+        return this.settingsCollector.getCurrentSettings().getLogger();
+    }
+
     public ExceptionHandler getExceptionHandler() {
         return this.exceptionHandler;
     }
