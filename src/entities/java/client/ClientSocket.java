@@ -80,11 +80,7 @@ public class ClientSocket implements Socket {
     private boolean messageSettingChanged(MessageSettings oldMessageSettings, MessageSettings newMessageSettings) {
         this.settingsCollector.remove(oldMessageSettings);
         this.settingsCollector.add(newMessageSettings);
-        // TODO: add settings separators + line separators
         return newMessageSettings.HeaderLengthHasChanged(oldMessageSettings);
-        // messaggio utilizzato per indicare la fine della trasmissione destinata per le impostazioni
-
-
     }
 
     private boolean sendSettings(Message message) {
