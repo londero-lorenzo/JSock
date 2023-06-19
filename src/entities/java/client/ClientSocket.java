@@ -38,7 +38,9 @@ public class ClientSocket implements Socket {
         try {
             this.socket = new java.net.Socket(this.address.getIpv4(), this.address.getPort());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            this.socket = null;
+            this.exceptionHandler.setException(new ConnectionRefusedException());
+            return;
         }
         this.initializeClient();
         this.sendInitialSettings();
