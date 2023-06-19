@@ -1,6 +1,6 @@
 package commandLine;
 
-import client.Client;
+import commandLineInterfaceSocket.ClientCLI;
 import structures.*;
 
 import java.io.File;
@@ -23,15 +23,8 @@ public class ClientStart {
         settingsCollector.add(settings);
         settingsCollector.add(messageSettings);
 
-        Client client = new Client(settingsCollector);
-        Address serverAddress = new Address("192.168.178.134", 10951);
-        client.connectTo(serverAddress);
-//        Message message = new Message("Hello World", MessageTypes.TX_MESSAGE);
-//        client.send(message);
-
-
-        Message message = new Message("Lodap", MessageTypes.SET_NAME);
-        client.send(message);
+        ClientCLI client = new ClientCLI(settingsCollector);
+        client.run();
     }
 
 }
