@@ -16,7 +16,7 @@ public class MultiConnectionServerSocket implements Socket {
 
     private final Address address;
 
-    private SettingsCollector settingsCollector;
+    private final SettingsCollector settingsCollector;
 
     private final boolean connected = false;
 

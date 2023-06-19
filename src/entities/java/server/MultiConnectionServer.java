@@ -13,7 +13,7 @@ public class MultiConnectionServer {
 
     private final MultiConnectionServerSocket multiConnectionServerSocket;
 
-    private SettingsCollector settingsCollector;
+    private final SettingsCollector settingsCollector;
 
     private ClientManagerList clientManagerList;
 
