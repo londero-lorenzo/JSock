@@ -55,6 +55,10 @@ public abstract class Client {
 
     protected abstract void askAddressAndConnect();
 
+    public void run() {
+        this.askAddressAndConnect();
+    }
+
     public Logger getLogger() {
         return this.settingsCollector.getCurrentSettings().getLogger();
     }
