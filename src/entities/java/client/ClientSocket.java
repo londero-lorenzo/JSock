@@ -26,12 +26,14 @@ public class ClientSocket implements Socket {
 
     private final SettingsCollector settingsCollector;
 
+    private final ExceptionHandler exceptionHandler;
 
     private boolean connected = false;
 
 
-    public ClientSocket(Address address, SettingsCollector settingsCollector) {
+    public ClientSocket(Address address, SettingsCollector settingsCollector, ExceptionHandler exceptionHandler) {
         this.address = address;
+        this.exceptionHandler = exceptionHandler;
         this.settingsCollector = settingsCollector;
         try {
             this.socket = new java.net.Socket(this.address.getIpv4(), this.address.getPort());
@@ -43,9 +45,10 @@ public class ClientSocket implements Socket {
     }
 
 
-    public ClientSocket(java.net.Socket socket, SettingsCollector settingsCollector) {
+    public ClientSocket(java.net.Socket socket, SettingsCollector settingsCollector, ExceptionHandler exceptionHandler) {
         this.socket = socket;
         this.address = new Address(socket.getInetAddress().getHostAddress(), socket.getPort());
+        this.exceptionHandler = exceptionHandler;
         this.settingsCollector = settingsCollector;
         this.initializeClient();
         // TODO: set client logger file with the right name (e.g. 192.168.1.25-ClientLog.txt or wait for name: <client_name>-ClientLog.txt)
@@ -98,6 +101,9 @@ public class ClientSocket implements Socket {
         return this.inputChannel.read();
     }
 
+    public ExceptionHandler getExceptionHandler() {
+        return this.exceptionHandler;
+    }
 
     public MessageSettings getMessageSettings() {
         return this.settingsCollector.getMessageSettings();
