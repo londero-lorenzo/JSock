@@ -48,9 +48,8 @@ public abstract class Client {
         return this.socket.read();
     }
 
-    public void setMessageSettings() {
-        if (this.socket.isConnected())
-            this.socket.setMessageSettings(this.settingsCollector.getMessageSettings());
+    public boolean setMessageSettings() {
+        return this.socket.setMessageSettings(this.settingsCollector.getMessageSettings());
         //TODO: invio al server le nuove impostazioni
     }
 
