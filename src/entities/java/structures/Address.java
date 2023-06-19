@@ -1,10 +1,17 @@
 package structures;
 
+import exceptions.ExceptionHandler;
+import exceptions.SocketException;
+import exceptions.InvalidIpv4AddressProvided;
+import exceptions.InvalidPortProvided;
+
 public class Address {
 
     private final String ipv4;
 
     private final int port;
+
+    private ExceptionHandler exceptionHandler;
 
     private final Boolean secure = false;
 
