@@ -14,7 +14,10 @@ public abstract class Client {
 
     private final SettingsCollector settingsCollector;
 
+    private final ExceptionHandler exceptionHandler;
+
     public Client(SettingsCollector messageSettings) {
+        this.exceptionHandler = new ExceptionHandler();
         this.settingsCollector = messageSettings;
     }
 
@@ -42,5 +45,9 @@ public abstract class Client {
         if (this.socket.isConnected())
             this.socket.setMessageSettings(this.settingsCollector.getMessageSettings());
         //TODO: invio al server le nuove impostazioni
+    }
+
+    public ExceptionHandler getExceptionHandler() {
+        return this.exceptionHandler;
     }
 }
