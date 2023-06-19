@@ -21,15 +21,22 @@ public abstract class Client {
         this.settingsCollector = messageSettings;
     }
 
-
-    public void connectTo(Address serverAddress) {
+    public boolean connectTo(Address serverAddress) {
+        if (serverAddress == null)
+            return false;
+        if (!serverAddress.isUsable()) {
+            this.exceptionHandler.setExceptionFromAnotherExceptionHandler(serverAddress.getExceptionHandler());
+            return false;
+        }
         this.serverAddress = serverAddress;
-        this.connect();
+        return this.connect();
     }
 
-    private void connect() {
-        this.socket = new ClientSocket(this.serverAddress, this.settingsCollector);
-        this.setMessageSettings();
+    private boolean connect() {
+        this.socket = new ClientSocket(this.serverAddress, this.settingsCollector, this.exceptionHandler);
+        if (!socket.isConnected())
+            return false;
+        return this.setMessageSettings();
     }
 
     public void send(Message message) {
