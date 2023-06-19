@@ -1,5 +1,6 @@
 package server;
 
+import exceptions.ExceptionHandler;
 import exceptions.ServerIsAlreadyRunningException;
 import structures.Address;
 import structures.SettingsCollector;

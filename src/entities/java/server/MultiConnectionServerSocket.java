@@ -1,5 +1,6 @@
 package server;
 
+import exceptions.ExceptionHandler;
 import socket.Socket;
 import structures.Address;
 import structures.Message;
