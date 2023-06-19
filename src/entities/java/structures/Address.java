@@ -7,9 +7,9 @@ import exceptions.InvalidPortProvided;
 
 public class Address {
 
-    private final String ipv4;
+    private String ipv4;
 
-    private final int port;
+    private int port;
 
     private ExceptionHandler exceptionHandler;
 
