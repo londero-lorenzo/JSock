@@ -39,12 +39,11 @@ public abstract class Client {
         return this.setMessageSettings();
     }
 
-    public void send(Message message) {
-        this.socket.send(message);
+    public boolean send(Message message) {
+        return this.socket.send(message);
     }
 
-    public Message receive()
-    {
+    public Message receive() {
         return this.socket.read();
     }
 

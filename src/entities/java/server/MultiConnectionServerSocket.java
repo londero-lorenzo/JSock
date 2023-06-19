@@ -4,13 +4,12 @@ import exceptions.ExceptionHandler;
 import socket.Socket;
 import structures.Address;
 import structures.Message;
-import structures.MessageSettings;
 import structures.SettingsCollector;
+
 import java.io.IOException;
 import java.net.InetAddress;
 
 public class MultiConnectionServerSocket implements Socket {
-
 
     private final java.net.ServerSocket serverSocket;
 
@@ -21,7 +20,6 @@ public class MultiConnectionServerSocket implements Socket {
     private final ExceptionHandler exceptionHandler;
 
     private final boolean connected = false;
-
 
     public MultiConnectionServerSocket(int port, SettingsCollector settingsCollector, ExceptionHandler exceptionHandler) {
         this.exceptionHandler = exceptionHandler;

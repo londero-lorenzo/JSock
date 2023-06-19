@@ -16,8 +16,7 @@ public class Setting<TypeOfValue> {
         return this.type.toString();
     }
 
-    public SettingTypes getType()
-    {
+    public SettingTypes getType() {
         return this.type;
     }
 

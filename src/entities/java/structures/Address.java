@@ -96,6 +96,6 @@ class Ipv4 {
 
     @Override
     public String toString() {
-        return Integer.toString(xxx) + '.' + Integer.toString(yyy) + '.' + Integer.toString(zzz) + '.' + Integer.toString(kkk);
+        return Integer.toString(xxx) + '.' + yyy + '.' + zzz + '.' + kkk;
     }
 }

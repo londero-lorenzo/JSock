@@ -3,6 +3,7 @@ package commandLineInterfaceSocket;
 import client.Client;
 import structures.Address;
 import structures.SettingsCollector;
+
 import java.util.Scanner;
 
 public class ClientCLI extends Client {

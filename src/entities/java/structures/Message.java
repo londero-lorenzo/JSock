@@ -4,7 +4,7 @@ public class Message {
 
     private final String message;
 
-    private MessageTypes type;
+    private final MessageTypes type;
 
     public Message(String message, MessageTypes type) {
         this.message = message;
