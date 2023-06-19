@@ -57,25 +57,9 @@ public class MultiConnectionServerSocket implements Socket {
         }
     }
 
+    // TODO: useful to send a jam message to all clients connected
     @Override
-    public void setMessageSettings(MessageSettings messageSettings) {
-
-    }
-
-    @Override
-    public void send(Message message) {
-
-    }
-
-    @Override
-    public java.net.Socket getSocketObject() {
-        return null;
-    }
-
-
-    //TODO: forse inutile
-    @Override
-    public boolean isConnected() {
-        return this.connected;
+    public boolean send(Message message) {
+        return true;
     }
 }
