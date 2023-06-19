@@ -13,7 +13,7 @@ public class Address {
 
     private ExceptionHandler exceptionHandler;
 
-    private final Boolean secure = false;
+    private boolean usable = true;
 
     public Address(String ipv4, int port) {
         this.ipv4 = ipv4;
