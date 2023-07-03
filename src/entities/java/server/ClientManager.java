@@ -1,19 +1,16 @@
 package server;
 
 
+import client.ClientSocket;
 import structures.Message;
-import structures.MessageTypes;
+import structures.MessageType;
 
 public class ClientManager implements Runnable {
-    private final ClientSocketServer clientSocket;
+    private final ClientSocket clientSocket;
 
-    public ClientManager(ClientSocketServer clientSocket) {
+
+    public ClientManager(ClientSocket clientSocket) {
         this.clientSocket = clientSocket;
-        this.readInitialSettings();
-    }
-
-    private void readInitialSettings() {
-        this.clientSocket.readInitialSettings();
     }
 
 
@@ -21,7 +18,7 @@ public class ClientManager implements Runnable {
     public void run() {
         while (true) {
             Message inboundMessage = this.clientSocket.read();
-            if (inboundMessage.getType() == MessageTypes.RX_NORMAL_MESSAGE) {
+            if (inboundMessage.getType() == MessageType.RX_NORMAL_MESSAGE) {
 
             }
         }
