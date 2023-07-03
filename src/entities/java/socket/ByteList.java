@@ -29,6 +29,8 @@ public class ByteList extends structures.List<Byte> {
     }
 
     public int getIntFromByteList() {
+        // TODO: " " will be a relevant char, so replace (b'0000 0000') bytes.
+        // receiving: "c  " -> [01100011], [00000000], [00000000]
         return Integer.parseInt(this.getStringFromByteList().replace(" ", ""));
     }
 

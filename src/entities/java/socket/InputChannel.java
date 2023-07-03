@@ -26,7 +26,13 @@ public class InputChannel {
         this.dataInputReader = new DataInputReader(this);
     }
 
-
+    /**
+     * <h3>Get Initial Settings method</h3>
+     * This method is used to receive all initial settings sent by the client.<br>
+     * The data received is a {@link ByteList} object, this means that the bytes need to be converted into a string.
+     *
+     * @return a converted string including all the message settings
+     */
     public String readAll() {
         this.socket.getLogger().logWithTime("> Receiving Initial Settings... <\n");
         ByteList byteList = this.dataInputReader.readAll();
