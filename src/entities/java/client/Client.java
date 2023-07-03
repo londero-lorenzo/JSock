@@ -1,10 +1,7 @@
 package client;
 
 import exceptions.ExceptionHandler;
-import structures.Address;
-import structures.Logger;
-import structures.Message;
-import structures.SettingsCollector;
+import structures.*;
 
 
 public abstract class Client {
@@ -16,9 +13,9 @@ public abstract class Client {
 
     private final ExceptionHandler exceptionHandler;
 
-    public Client(SettingsCollector messageSettings) {
+    public Client(SettingsCollector settingsCollector) {
         this.exceptionHandler = new ExceptionHandler();
-        this.settingsCollector = messageSettings;
+        this.settingsCollector = settingsCollector;
     }
 
     public boolean connectTo(Address serverAddress) {
@@ -34,9 +31,8 @@ public abstract class Client {
 
     private boolean connect() {
         this.socket = new ClientSocket(this.serverAddress, this.settingsCollector, this.exceptionHandler);
-        if (!socket.isConnected())
-            return false;
-        return this.setMessageSettings();
+        return socket.isConnected();
+        //return this.setMessageSettings();
     }
 
     public boolean send(Message message) {

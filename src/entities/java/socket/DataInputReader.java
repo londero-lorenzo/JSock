@@ -2,7 +2,7 @@ package socket;
 
 import exceptions.MessageHeaderLengthException;
 import structures.Message;
-import structures.MessageTypes;
+import structures.MessageType;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -15,14 +15,15 @@ public class DataInputReader {
         this.inputChannel = inputChannel;
     }
 
-    private ByteList readAll(int times) {
+    public ByteList readAll() {
+        int times = this.inputChannel.getClientSocket().getMessageSettings().getHeaderLength();
         ByteList byteList = new ByteList();
         boolean endFound = false;
         for (int i = 0; i < times; i++) {
             try {
                 byte c = (byte) this.inputChannel.getSocketInputStream().read();
-                if (Arrays.equals(new byte[]{byteList.getLastByte(), c}, MessageTypes.LINE_SEPARATOR.getBytes())) {
-                    byteList.removeLastByte();
+                if (Arrays.equals(new byte[]{byteList.getLastByte(), c}, MessageType.LINE_SEPARATOR.getBytes())) {
+                    byteList.removeLastByte(); //to remove special char [13] used to represent LINE_SEPARATOR
                     endFound = true;
                     break;
                 }
@@ -46,10 +47,6 @@ public class DataInputReader {
      *
      * @return
      */
-    public ByteList readAll() {
-        return readAll(this.inputChannel.getClientSocket().getMessageSettings().getHeaderSize());
-    }
-
     private ByteList read(int times) {
         ByteList byteList = new ByteList();
         for (int i = 0; i < times; i++) {
@@ -66,24 +63,23 @@ public class DataInputReader {
 
 
     public Message read() {
-        MessageTypes messageType = this.getMessageType();
-        return createMessageFromByteList(this.getRawMessageData(), messageType);
+        MessageType messageType = this.getMessageType();
+        String messageData = this.getRawMessageData().getStringFromByteList();
+        return new Message(messageData, messageType);
     }
 
-    private MessageTypes getMessageType() {
-        ByteList rawMessageTypeByteLengthAsString = this.read(this.inputChannel.getClientSocket().getMessageSettings().getHeaderLength());
-        int messageTypeLength = rawMessageTypeByteLengthAsString.getIntFromByteList();
-        ByteList rawMessageType = this.read(messageTypeLength);
-        return MessageTypes.fromString(rawMessageType.getStringFromByteList());
+    private int getMessageLength() {
+        return this.read(this.inputChannel.getClientSocket().getMessageSettings().getHeaderLengthSize()).getIntFromByteList();
     }
+
+
+    private MessageType getMessageType() {
+        ByteList rawMessageType = this.read(this.getMessageLength());
+        return MessageType.fromString(rawMessageType.getStringFromByteList());
+    }
+
 
     private ByteList getRawMessageData() {
-        ByteList rawMessageDataLengthAsString = this.read(this.inputChannel.getClientSocket().getMessageSettings().getHeaderLength());
-        int messageDataLength = rawMessageDataLengthAsString.getIntFromByteList();
-        return this.read(messageDataLength);
-    }
-
-    private Message createMessageFromByteList(ByteList rawMessageData, MessageTypes messageType) {
-        return new Message(rawMessageData.getStringFromByteList(), messageType);
+        return this.read(this.getMessageLength());
     }
 }

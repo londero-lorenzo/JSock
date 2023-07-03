@@ -2,15 +2,11 @@ package client;
 
 import exceptions.ExceptionHandler;
 import exceptions.ConnectionRefusedException;
+import server.MultiConnectionServerSocket;
 import socket.OutputChannel;
 import socket.InputChannel;
 import socket.Socket;
-import structures.Address;
-import structures.Message;
-import structures.MessageSettings;
-import structures.MessageTypes;
-import structures.SettingsCollector;
-import structures.Logger;
+import structures.*;
 
 import java.io.IOException;
 
@@ -22,7 +18,7 @@ public class ClientSocket implements Socket {
 
     private OutputChannel outputChannel;
 
-    protected InputChannel inputChannel;
+    private InputChannel inputChannel;
 
     private final SettingsCollector settingsCollector;
 
@@ -57,23 +53,23 @@ public class ClientSocket implements Socket {
     }
 
     private void initializeClient() {
-        this.getLogger().logWithTime("Connessione a: " + this.address);
-        this.getLogger().logWithPadding("Inizializzazione client:");
+        this.getLogger().logWithTime("Connection to: " + this.address);
+        this.getLogger().logWithPadding("Client initialization:");
         this.outputChannel = new OutputChannel(this);
-        this.getLogger().logWithPadding(" -> Canale in uscita inizializzato...");
+        this.getLogger().logWithPadding(" -> Output channel: established");
         this.inputChannel = new InputChannel(this);
-        this.getLogger().logWithPadding(" -> Canale in ingresso inizializzato...");
+        this.getLogger().logWithPadding(" -> Input channel: established");
         this.connected = true;
     }
 
     private void sendInitialSettings() {
-        this.sendSettings(new Message(String.valueOf(this.settingsCollector.getMessageSettings().getHeaderLength()), MessageTypes.SET_HEADER_LENGTH));
-        this.sendSettings(new Message(MessageTypes.LINE_SEPARATOR, MessageTypes.END_SETTINGS_SEPARATOR));
+        this.sendSettings(new Message(String.valueOf(this.settingsCollector.getMessageSettings().getHeaderLengthSize()), MessageType.SET_HEADER_LENGTH));
+        this.sendSettings(new Message(MessageType.LINE_SEPARATOR, MessageType.END_SETTINGS_SEPARATOR));
     }
 
     public boolean setMessageSettings(MessageSettings messageSettings) {
         if (this.messageSettingChanged(this.settingsCollector.getMessageSettings(), messageSettings))
-            return this.sendSettings(new Message(String.valueOf(messageSettings.getHeaderLength()), MessageTypes.SET_HEADER_LENGTH));
+            return this.sendSettings(new Message(String.valueOf(messageSettings.getHeaderLengthSize()), MessageType.SET_HEADER_LENGTH));
         return true;
     }
 
@@ -83,9 +79,6 @@ public class ClientSocket implements Socket {
         return newMessageSettings.HeaderLengthHasChanged(oldMessageSettings);
     }
 
-    private boolean sendSettings(Message message) {
-        return this.outputChannel.sendSettings(message);
-    }
 
     @Override
     public boolean send(Message message) {

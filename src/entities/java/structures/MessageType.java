@@ -3,7 +3,7 @@ package structures;
 import java.util.Objects;
 
 
-public enum MessageTypes {
+public enum MessageType {
 
     SET_HEADER_LENGTH {
         @Override
@@ -61,10 +61,10 @@ public enum MessageTypes {
         }
     };
 
-    public static MessageTypes fromString(String text) {
-        for (MessageTypes messageTypes : MessageTypes.values())
-            if (Objects.equals(messageTypes.toString(), text))
-                return messageTypes;
+    public static MessageType fromString(String text) {
+        for (MessageType messageType : MessageType.values())
+            if (Objects.equals(messageType.toString(), text))
+                return messageType;
         return null;
     }
 

@@ -31,7 +31,7 @@ public class Address {
         Ipv4 ipv4 = Ipv4.createIpv4FromString(addressParts[0]);
         if (ipv4 == null)
             return new Address(new InvalidIpv4AddressProvided());
-        int port = -1;
+        int port;
         try {
             port = Integer.parseInt(addressParts[1]);
         } catch (NumberFormatException ignored) {

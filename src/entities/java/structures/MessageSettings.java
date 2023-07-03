@@ -20,38 +20,36 @@ public class MessageSettings extends Settings {
     //}
 
     public boolean checkHeaderLengthOfMessage(Message message) {
-        return (this.getHeaderSize() > message.getDataLength());
+        return (this.getHeaderLength() > message.getDataLength());
     }
 
-    public String getDataMessageSize(Message message) {
-        int messageLength = message.getDataLength();
-        String messageStringSize = Integer.toString(messageLength);
-        int rawMessageSize = messageStringSize.length();
-        return " ".repeat(Math.max(0, (Integer) this.getSettingList().getSetting(SettingTypes.HEADER_SETTING).getValue() - rawMessageSize)) +
-                messageStringSize;
+
+    public String getDataMessageLength(Message message) {
+        int messageDataLengthSize = message.getDataLengthSize();
+        return (" ".repeat(Math.max(0, this.getHeaderLengthSize() - messageDataLengthSize))) + messageDataLengthSize;
     }
 
-    public String getTypeMessageSize(Message message) {
-        int messageLength = message.getTypeLength();
-        String messageStringSize = Integer.toString(messageLength);
-        int rawMessageSize = messageStringSize.length();
-        return " ".repeat(Math.max(0, (Integer) this.getSettingList().getSetting(SettingTypes.HEADER_SETTING).getValue() - rawMessageSize)) +
-                messageStringSize;
+
+    public String getTypeMessageLength(Message message) {
+        int messageTypeLengthSize = message.getTypeLengthSize();
+        return (" ".repeat(Math.max(0, this.getHeaderLengthSize() - messageTypeLengthSize))) + messageTypeLengthSize;
     }
 
-    public int getHeaderSize() {
+
+    public int getHeaderLength() {
         String headerString = "";
         for (int i = 0; i < (int) this.getSettingList().getSetting(SettingTypes.HEADER_SETTING).getValue(); i++)
             headerString += "9";
         return Integer.parseInt(headerString);
     }
 
-    public int getHeaderLength() {
+
+    public int getHeaderLengthSize() {
         return (int) this.getSettingList().getSetting(SettingTypes.HEADER_SETTING).getValue();
     }
 
     public boolean HeaderLengthHasChanged(MessageSettings oldMessageSettings) {
         if (oldMessageSettings == null) return true;
-        return this.getHeaderLength() != oldMessageSettings.getHeaderLength();
+        return this.getHeaderLengthSize() != oldMessageSettings.getHeaderLengthSize();
     }
 }

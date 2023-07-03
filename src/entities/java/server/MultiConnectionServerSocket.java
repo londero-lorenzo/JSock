@@ -1,5 +1,6 @@
 package server;
 
+import client.ClientSocket;
 import exceptions.ExceptionHandler;
 import socket.Socket;
 import structures.Address;
@@ -46,10 +47,10 @@ public class MultiConnectionServerSocket implements Socket {
         this.settingsCollector.getCurrentSettings().getLogger().logWithTime("Server socket ready on address: " + this.address.getIpv4() + ":" + this.address.getPort());
     }
 
-    public ClientSocketServer accept() {
+    public ClientSocket accept() {
         try {
             // TODO: check if here is the right place to transfer client log (is more useful create a username for the client)
-            return new ClientSocketServer(this.serverSocket.accept(), this.settingsCollector, this.exceptionHandler);
+            return new ClientSocket(this.serverSocket.accept(), this.settingsCollector, this.exceptionHandler);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

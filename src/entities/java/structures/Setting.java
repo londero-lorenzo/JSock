@@ -30,11 +30,14 @@ public class Setting<TypeOfValue> {
 
     public void setValueFromString(String newValue) {
         if (this.value.getClass() == Integer.class) {
-            this.setValue((TypeOfValue) Integer.valueOf(newValue));
+            @SuppressWarnings("unchecked") TypeOfValue newSettingValue = (TypeOfValue) Integer.valueOf(newValue);
+            this.setValue(newSettingValue);
         } else if (this.value.getClass() == String.class) {
-            this.setValue((TypeOfValue) newValue);
+            @SuppressWarnings("unchecked") TypeOfValue newSettingValue = (TypeOfValue) String.valueOf(newValue);
+            this.setValue(newSettingValue);
         } else if (this.value.getClass() == Byte.class) {
-            this.setValue((TypeOfValue) Byte.valueOf(newValue));
+            @SuppressWarnings("unchecked") TypeOfValue newSettingValue = (TypeOfValue) Byte.valueOf(newValue);
+            this.setValue(newSettingValue);
         } else {
             throw new UnalterableSettingByStringException(this);
         }

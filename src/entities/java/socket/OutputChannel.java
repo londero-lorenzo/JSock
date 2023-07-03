@@ -5,7 +5,7 @@ import exceptions.MessageHeaderLengthException;
 import exceptions.TransferringException;
 import exceptions.TransferringSettingsException;
 import structures.Message;
-import structures.MessageTypes;
+import structures.MessageType;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -27,50 +27,51 @@ public class OutputChannel {
     }
 
     public boolean sendSettings(Message message) {
-        this.socket.getLogger().logWithTime("> Trasmissione Impostazioni... <\n");
+        this.socket.getLogger().logWithTime("> Transmission Settings... <\n");
         try {
-            this.socket.getLogger().logWithPadding("Header length: " + this.socket.getMessageSettings().getHeaderSize());
-            this.socket.getLogger().logWithPadding("Tipologia d'Impostazione: " + message.getType());
-            this.socket.getLogger().logWithPadding("Dati da inviare: " + message);
-            this.socket.getLogger().logWithPadding("Dati grezzi da inviare: " + Arrays.toString(message.getBytes()));
-            this.socketOutputStream.write((message.getType() == MessageTypes.END_SETTINGS_SEPARATOR ? new byte[0] : message.getType().getBytes()));
+            this.socket.getLogger().logWithPadding("Header length: " + this.socket.getMessageSettings().getHeaderLength());
+            this.socket.getLogger().logWithPadding("Setting name: " + message.getType());
+            this.socket.getLogger().logWithPadding("Data to send: " + message);
+            this.socket.getLogger().logWithPadding("Raw data to send: " + Arrays.toString(message.getBytes()));
+            this.socketOutputStream.write((message.getType() == MessageType.END_SETTINGS_SEPARATOR ? new byte[0] : message.getType().getBytes()));
             this.socketOutputStream.write(message.getBytes());
             this.socketOutputStream.flush();
         } catch (IOException e) {
             this.socket.getExceptionHandler().setException(new TransferringSettingsException());
             return false;
         }
-        this.socket.getLogger().logWithPadding("Lunghezza dati totali inviati: " + (message.getType().getBytes().length + message.getBytes().length));
-        this.socket.getLogger().logWithPaddingAndBR("> Fine Trasmissione <");
+        this.socket.getLogger().logWithPadding("Total bytes of message sent: " + ((message.getType() == MessageType.END_SETTINGS_SEPARATOR ? new byte[0] : message.getType().getBytes()).length + message.getBytes().length));
+        this.socket.getLogger().logWithPaddingAndBR("> End Transmission Settings <");
         return true;
     }
 
 
     public boolean send(Message message) {
-        this.socket.getLogger().logWithTime("> Trasmissione... <\n");
+        this.socket.getLogger().logWithTime("> Transmission... <\n");
         try {
-            this.socket.getLogger().logWithPadding("Header length: " + this.socket.getMessageSettings().getHeaderSize());
+            this.socket.getLogger().logWithPadding("Header length: " + this.socket.getMessageSettings().getHeaderLength());
             if (!this.socket.getMessageSettings().checkHeaderLengthOfMessage(message)) {
-                this.socket.getLogger().logWithPadding("Impossibile inviare il pacchetto");
+                this.socket.getLogger().logWithPadding("Unable to send the message");
                 this.socket.getExceptionHandler().setException(new MessageHeaderLengthException(this.socket.getMessageSettings()));
                 return false;
             }
-            this.socket.getLogger().logWithPadding("Lunghezza della tipologia del pacchetto: " + message.getType().getBytes().length);
-            this.socketOutputStream.write(this.socket.getMessageSettings().getTypeMessageSize(message).getBytes());
-            this.socket.getLogger().logWithPadding("Dati della tipologia del pacchetto: " + Arrays.toString(message.getType().getBytes()));
+            this.socket.getLogger().logWithPadding("Message data type length: " + message.getType().getBytes().length);
+            this.socketOutputStream.write(this.socket.getMessageSettings().getTypeMessageLength(message).getBytes());
+            this.socket.getLogger().logWithPadding("Message data type: " + Arrays.toString(message.getType().getBytes()));
             this.socketOutputStream.write(message.getType().getBytes());
-            this.socket.getLogger().logWithPadding("Lunghezza dei dati utili: " + this.socket.getMessageSettings().getDataMessageSize(message));
-            this.socketOutputStream.write(this.socket.getMessageSettings().getDataMessageSize(message).getBytes());
-            this.socket.getLogger().logWithPadding("Dati grezzi utili: " + Arrays.toString(message.getBytes()));
-            this.socket.getLogger().logWithPadding("Dati utili: " + message);
+            this.socket.getLogger().logWithPadding("Message data length: " + this.socket.getMessageSettings().getDataMessageLength(message));
+            this.socketOutputStream.write(this.socket.getMessageSettings().getDataMessageLength(message).getBytes());
+            this.socket.getLogger().logWithPadding("Raw message data: " + Arrays.toString(message.getBytes()));
+            this.socket.getLogger().logWithPadding("Message data: " + message);
             this.socketOutputStream.write(message.getBytes());
             this.socketOutputStream.flush();
         } catch (IOException e) {
             this.socket.getExceptionHandler().setException(new TransferringException());
             return false;
         }
-        this.socket.getLogger().logWithPadding("Lunghezza dati totali inviati: " + (message.getType().getBytes().length + message.getBytes().length));
-        this.socket.getLogger().logWithPaddingAndBR("> Fine Trasmissione <");
+        this.socket.getLogger().logWithPadding("Total bytes of message sent: " + (this.socket.getMessageSettings().getTypeMessageLength(message).getBytes().length +
+                message.getType().getBytes().length + this.socket.getMessageSettings().getDataMessageLength(message).getBytes().length + message.getBytes().length));
+        this.socket.getLogger().logWithPaddingAndBR("> End Transmission <");
         return true;
     }
 }

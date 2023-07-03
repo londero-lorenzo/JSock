@@ -1,5 +1,6 @@
 package server;
 
+import client.ClientSocket;
 import exceptions.ExceptionHandler;
 import exceptions.ServerIsAlreadyRunningException;
 import structures.Address;
@@ -49,7 +50,7 @@ public class MultiConnectionServer {
 
     public void accept() {
         while (true) {
-            ClientSocketServer clientSocket = this.multiConnectionServerSocket.accept();
+            ClientSocket clientSocket = this.multiConnectionServerSocket.accept();
             ClientManager clientManager = new ClientManager(clientSocket);
             Thread runClientManage = new Thread(clientManager);
             runClientManage.start();

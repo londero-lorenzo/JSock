@@ -5,7 +5,7 @@ public enum SettingTypes {
     HEADER_SETTING {
         @Override
         public String toString() {
-            return MessageTypes.SET_HEADER_LENGTH.toString();
+            return MessageType.SET_HEADER_LENGTH.toString();
         }
     },
     LOGGER_SETTING {
